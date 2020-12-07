@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "475413753645",
+    "firebase_url": "https://fpmoz-1.firebaseio.com",
+    "project_id": "fpmoz-1",
+    "storage_bucket": "fpmoz-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:475413753645:android:a6c772b9771c48b784ada4",
+        "android_client_info": {
+          "package_name": "ba.sum.fpmoz.pma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "475413753645-chffq8u27uidmt9q4h0ga2c1uo35paet.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvQlBaQrCo0PjScAVkrt5VLE1ZPUj1htk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "475413753645-chffq8u27uidmt9q4h0ga2c1uo35paet.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
