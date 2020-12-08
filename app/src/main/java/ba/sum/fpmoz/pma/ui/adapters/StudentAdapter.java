@@ -44,7 +44,7 @@ public class StudentAdapter extends FirebaseRecyclerAdapter<Student,StudentAdapt
             super(itemView);
             studentNameTxt = itemView.findViewById(R.id.studentNameTxt);
             studentSurnameTxt = itemView.findViewById(R.id.studentSurnameTxt);
-            studentUIdTxt = itemView.findViewById(R.id.studentUId);
+            studentUIdTxt = itemView.findViewById(R.id.studentUIdTxt);
         }
     }
 }

@@ -25,8 +25,8 @@ import ba.sum.fpmoz.pma.model.Student;
 import ba.sum.fpmoz.pma.ui.adapters.StudentAdapter;
 
 public class ListUsersFragment extends Fragment {
-
-    DatabaseReference dbref;
+    FirebaseDatabase db;
+    DatabaseReference ref;
     RecyclerView recyclerView;
     StudentAdapter adapter;
     @Nullable
@@ -34,32 +34,25 @@ public class ListUsersFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View userListView = inflater.inflate(R.layout.activity_user_list,container,false);
 
-        this.dbref = FirebaseDatabase.getInstance().getReference();
         this.recyclerView = userListView.findViewById(R.id.recyclerView);
-        setUpRecyclerView();
+
+        this.db = FirebaseDatabase.getInstance();
+        this.ref = this.db.getReference("ednevnik/ucenici");
+        this.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        FirebaseRecyclerOptions<Student> options = new FirebaseRecyclerOptions
+                .Builder<Student>()
+                .setQuery(this.ref, Student.class).build();
+        this.adapter = new StudentAdapter(options);
+        this.recyclerView.setAdapter(this.adapter);
 
         return userListView;
-    }
-
-    public void setUpRecyclerView(){
-        FirebaseRecyclerOptions<Student> options = new FirebaseRecyclerOptions.Builder<Student>().setQuery(
-                dbref.child("student"), new SnapshotParser<Student>() {
-                    @NonNull
-                    @Override
-                    public Student parseSnapshot(@NonNull DataSnapshot snapshot) {
-                        return snapshot.getValue(Student.class);
-                    }
-                }
-        ).build();
-        adapter = new StudentAdapter(options);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        adapter.startListening();
     }
 
     @Override
@@ -70,33 +63,3 @@ public class ListUsersFragment extends Fragment {
         }
     }
 }
-
-/*
-        FirebaseRecyclerOptions<Student> options = new FirebaseRecyclerOptions.Builder<Student>().setQuery(
-                dbref.child("student"), new SnapshotParser<Student>() {
-                    @NonNull
-                    @Override
-                    public Student parseSnapshot(@NonNull DataSnapshot snapshot) {
-                        return snapshot.getValue(Student.class);
-                    }
-                }
-        ).build();
-        */
-/*
-        adapter = new FirebaseRecyclerAdapter<Student,StudentHolder>(options){
-
-            @NonNull
-            @Override
-            public StudentHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_list_items,parent,false);
-                return new StudentHolder(itemView);
-            }
-
-            @Override
-            protected void onBindViewHolder(@NonNull StudentHolder holder, int position, @NonNull Student model) {
-              holder.setStudent(model);
-            }
-
-        };
-        recyclerView.setAdapter(adapter);
-        */
